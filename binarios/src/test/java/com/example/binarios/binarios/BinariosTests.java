@@ -28,6 +28,8 @@ import com.example.binarios.binarios.utils.Util;
 @SuppressWarnings("unused")
 public class BinariosTests {
 
+	private static final String V1_DIFF_URL = "/v1/diff/";
+
 	private static final String DOCUMENTOS_9999_IDENTICOS = "Documentos 9999 idênticos";
 
 	private static final String DOCUMENTOS_9998_COM_TAMANHOS_DIFERENTES = "Documentos 9998 com tamanhos diferentes";
@@ -58,7 +60,7 @@ public class BinariosTests {
 		jsonObject.setDado(Util.getBase64Encoder(Util.gerarSenhaRandomica().getBytes()));
 		
         Long idRandomico  = Util.gerarIdRandomico();
-		mockMvc.perform(post("/v1/diff/"+ idRandomico + "/esquerdo")
+		mockMvc.perform(post(V1_DIFF_URL+ idRandomico + "/esquerdo")
         		.content(Util.asJsonString(jsonObject))
         		.contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -72,7 +74,7 @@ public class BinariosTests {
 		jsonObject.setDado(Util.getBase64Encoder(Util.gerarSenhaRandomica().getBytes()));
 		
         Long idRandomico  = Util.gerarIdRandomico();
-		mockMvc.perform(post("/v1/diff/"+ idRandomico + "/direito")
+		mockMvc.perform(post(V1_DIFF_URL+ idRandomico + "/direito")
         		.content(Util.asJsonString(jsonObject))
         		.contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -90,7 +92,7 @@ public class BinariosTests {
 		
 		documentoRepository.save(documento);
 		
-		mockMvc.perform(get("/v1/diff/"+ 9999)
+		mockMvc.perform(get(V1_DIFF_URL+ 9999)
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk())
@@ -107,7 +109,7 @@ public class BinariosTests {
 		
 		documentoRepository.save(documento);
 		
-		mockMvc.perform(get("/v1/diff/"+ 9998)
+		mockMvc.perform(get(V1_DIFF_URL+ 9998)
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk())
@@ -124,7 +126,7 @@ public class BinariosTests {
 		
 		documentoRepository.save(documento);
 		
-		mockMvc.perform(get("/v1/diff/"+ 9997)
+		mockMvc.perform(get(V1_DIFF_URL+ 9997)
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk())
